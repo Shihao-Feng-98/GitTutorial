@@ -1,117 +1,154 @@
-# Git usage tutorial
+# Git Tutorial
 
+## Standard usage
+---
+### 1. Get a repositories(repo in short)
 
-## 1. Simple usage
-### 1.1 Clone the github repo to the local 
+#### 1.1 New(or fork) a repo in [Github](https://github.com/) (or [Gitlab](https://gitlab.com/))
+
+#### 1.2 Clone remote repo to local 
 ```shell
-git clone https://github.com/Shihao-Feng-98/Github_usage_tutorial.git
+git clone https://github.com/Shihao-Feng-98/GitTutorial.git
 ```
 
-### 1.2 Initialize the local repo 
+#### 1.3 Initialize the local repo 
 ```shell
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
-
 ```
 
-### 1.3 Submit the modified files
+---
+
+### 2. Coding locally and updating in git
+We need some branches when developing our codes. Generally, the release code in `main` branch, the develop code in `dev` branch. 
+
+#### 2.1 Create a new branch from the current branch
+For example, we create a new branch named `dev` from `main` branch:
+```shell
+git branch dev # create a branch named dev
+git checkout dev # switch to dev branch
+```
+After creating a new branch locally, you also should update this branch to remote:
+```shell
+git push origin dev
+```
+Before creating a new branch, make sure you are in the branch you want. And we should create a new branch for each new feature (like `dev/AddXxxFeat`).
+
+#### 2.2 Push to remote (Github or Gitlab)
+You can commit and push multiple times until your feature development and testing is complete.
 ```shell
 git add . # add all modified files
 git add file_name # add specific file
+```
+
+```shell
 git commit -m "some descriptions of submission" # add some descriptions
 ```
-Multiple revisions can be submitted multiple times until the current function is developed and tested.
 
-### 1.4 Submit to github repo
 ```shell
-git push origin main # push to the github main branch
+git push origin branch_name # push to the corresponding remote branch
 ```
 
-
-## 2. Standard usage
-### 2.1 Create a new branch 
+#### 2.3 Merge to the important branch
+For example, now you are in `dev/AddXxxFeat` branch. After develop the new feature, you should merge to `dev` branch:
 ```shell
-git branch dev # create a branch named dev
-git checkout dev # switch to dev branch for development
+git checkout dev # switch to dev branch
+git merge dev/AddXxxFeat # merge the code of dev/AddXxxFeat branch to dev branch
 ```
-Now the new branch is exist in local. If you want to create this branch to github repo, run
-```shell
-git push origin dev # pull dev branch to github repo
-```
-You can develop in this branch, then submit(see 1.3) the code, and push to github repo by the above cmd.
 
-### 2.2 Merge the dev branch into the main branch
+When multiple `dev/AddXxxFeat` branc merged to `dev` branch, you should merge the `dev` branch to `main` branch:
 ```shell
 git checkout main # switch to main branch
 git merge dev # merge the code of dev branch to main branch
 ```
-After merging the dev branch, then you can delete this branch that if you want
+
+#### 2.4 Delete the redundant branch
+Delete the local branch:
 ```shell
-git branch -d dev # delete local branch
-git branch origin:dev # delete github branch
+git branch -d dev/AddXxxFeat # has been pushed or merged
+git branch -D dev/AddXxxFeat # haven't been pushed or merged
+```
+Delete the remote branch:
+```shell
+git push origin --delete dev/AddXxxFeat
 ```
 
-
-## 3. Publish the complete project 
-### 3.1 Use tag to label the milestone
+---
+### 3. Release the project 
+#### 3.1 Use tag to label the milestone
+In general, the project version that needs to be released will be labeled with tag:
 ```shell
-git tag -a tag1.0 -m "tag descriptions" # create a tag
-git push origin tag1.0 # push the tag to remote(github)
-git checkout tag1.0 # checkout tag when rollback is required
+git tag -a version1.0 -m "tag descriptions" # create a tag
+git push origin version1.0 # push the tag to remote
 ```
 
-### 3.2 Fix the bug of historical version
+#### 3.2 Fix the bug of historical version
+For example, you found a bug in `version1.0`, but you are currently developing in `version2.0`; You need to create a new branch and fix the bug of `version1.0`:
 ```shell
-git checkout tag1.0 # checkout the tag
-git branch fix_bug_tag1.0 # create a new branch from tag1.0
-git checkout fix_bug_tag1.0 # checkout branch
-# after fixing the bug
-git tag -a tag1.1 -m "tag descriptions" # create a new tag
-git push origin tag1.1 
-git checkout main
+git checkout version1.0 # checkout the tag
+git branch fix_bug_version1.0 # create a new branch from version1.0
+git checkout fix_bug_version1.0 # checkout branch
 ```
 
-### 3.3 Modified the historical version and merge to the main branch
+After fixing the bug, you should create a new tag:
 ```shell
-git branch merge_bug_fix # create a new branch from tag1.0
+git tag -a version1.1 -m "tag descriptions" # create a new tag
+git push origin version1.1
+```
+
+If you found this bug also exists in `version2.0`, you should merge the code from `version1.1`: 
+```shell
+git checkout version2.0 
+git checkout dev
+git branch merge_bug_fix # create a new branch from version2.0 
 git checkout merge_bug_fix
-# after fixing the bug
-git merge tag1.1
-# solve the conflict and push to the remote
+git merge version1.1
+```
+Then solve the conflict, push to remote, and merge to `dev` branch.
+
+---
+### 4. Use pull requests (merge requests)
+When you are collaborating with others, you should use `Pull requests` or `Merge requests` to submit code.
+* Click `Merge requests`
+* Choose the branch you want to merge
+* Write some descriptions
+* Wait for review
+
+---
+### Some useful command
+#### Fetch code from remote branch and merge to local branch 
+```shell
+git pull origin main # git pull origin main:main, merge the remote main branch to local main branch
+git pull origin main:dev # merge the remote main branch to local dev branch
 ```
 
-
-## 4. Use pull request for project development
-* Click <kbd>Fork</kbd> of the targt repo page and you would find the repo in your github.
-
-* Git clone the forked repo to the local.
-
-* Create a new branch, then finish the development.
-
-* Add commit, then merge to main branch, and push to github.
-
-* Go to the target repo and click <kbd>New pull request</kbd>.
-
-
-## Some useful cmd 
-### Fetch code from github and merge local version
+#### Get information
+Check branch:
 ```shell
-git pull origin main # merge the remote(github) main branch to local main
-git pull origin main:dev # merge the remote(github) main branch to local dev
+git status # check the status of the current local branch
+git remote show origin # check the infomation of remote branch
+git branch # list local branch
+git branch -r # list remote branch
+git branch -a # list all branch
+```
+If you find that a remote deleted branch appears in the local branch information, run:
+```shell
+git remote prune origin
 ```
 
-### Check some information
+Check tag:
 ```shell
-git status # check the status of the current branch
-
 git tag # list tag
 git show tag_name # check the infomation of the current tag 
+```
 
-git branch # list local branch
-git branch -a # list all branch
-git branch -r # list remote(github) branch
-git remote show origin # check the infomation of remote(github) branch
-# if you find that a remote deleted branch appears 
-# in the local branch information, run the following line
-git remote prune origin
+#### Combine commits
+During development, you would add many commits, but you should combine them into one commit before `Pull requests` to keep it clear:
+
+
+#### Push or pull hangs
+When `git pull` and `git push` hangs, try:
+```shell
+git fsck # verifies the connectivity and validity of the objects in the database
+git gc --prune=now # cleanup unnecessary files and optimize the local repository
 ```
