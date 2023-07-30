@@ -123,7 +123,10 @@ git pull origin main:dev # merge the remote main branch to local dev branch
 ```
 
 #### Get information
-Check branch:
+```shell
+git log # list the commit history
+```
+
 ```shell
 git status # check the status of the current local branch
 git remote show origin # check the infomation of remote branch
@@ -131,15 +134,15 @@ git branch # list local branch
 git branch -r # list remote branch
 git branch -a # list all branch
 ```
-If you find that a remote deleted branch appears in the local branch information, run:
-```shell
-git remote prune origin
-```
 
-Check tag:
 ```shell
 git tag # list tag
 git show tag_name # check the infomation of the current tag 
+```
+
+If you find that a remote deleted branch appears in the local branch information, run:
+```shell
+git remote prune origin
 ```
 
 #### Combine commits
