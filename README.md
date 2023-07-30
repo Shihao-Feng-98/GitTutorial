@@ -4,6 +4,7 @@
 You can try [**GitKraken: a git GUI**](https://www.gitkraken.com/git-client) instead
 
 ---
+
 ### 1. Get a repositories(repo in short)
 
 #### 1.1 New(or fork) a repo in [**Github**](https://github.com/) (or [**Gitlab**](https://gitlab.com/))
@@ -109,14 +110,16 @@ git merge version1.1
 Then solve the conflict, push to remote, and merge to `dev` branch.
 
 ---
+
 ### 4. Use pull requests (merge requests)
 When you are collaborating with others, you should use `Pull requests` or `Merge requests` to submit code.
-* Click `Merge requests`
-* Choose the branch you want to merge
-* Write some descriptions
-* Wait for review
+- Click `Merge requests`
+- Choose the branch you want to merge
+- Write some descriptions
+- Wait for review
 
 ---
+
 ### Some useful command
 #### Fetch code from remote branch and merge to local branch 
 ```shell
