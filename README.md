@@ -1,10 +1,12 @@
 # Git Tutorial
 
-## Standard usage
+## Standard usage with git command
+You can try [**GitKraken: a git GUI**](https://www.gitkraken.com/git-client) instead
+
 ---
 ### 1. Get a repositories(repo in short)
 
-#### 1.1 New(or fork) a repo in [Github](https://github.com/) (or [Gitlab](https://gitlab.com/))
+#### 1.1 New(or fork) a repo in [**Github**](https://github.com/) (or [**Gitlab**](https://gitlab.com/))
 
 #### 1.2 Clone remote repo to local 
 ```shell
