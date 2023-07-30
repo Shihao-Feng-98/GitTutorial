@@ -146,7 +146,27 @@ git remote prune origin
 ```
 
 #### Combine commits
-During development, you would add many commits, but you should combine them into one commit before `Pull requests` to keep it clear:
+During development, you would add many commits, but you should combine 
+them into one commit before `Pull requests` to keep it clear.
+
+Use `git reset --soft`:
+```shell
+git log -5 # show last 5 commits
+git reset --soft commit_id # restore files from repo to cache without changing the local work area
+git add -u # add tracked files
+git commit -m "new description"
+git push --force
+```
+
+Or use `git rebase`:
+```shell
+git log -5
+git rebase -i HEAD~5 # combine last 5 commits into one commit
+git push --force
+```
+Notes: 
+1. Run `git rebase -i HEAD~5` would enter a editor, change the reserved commit as `pick`, change the discarded commit as `fixup`.
+2. `git rebase` would create a new branch. If you make a mistake, you can `git checkout` to the previous branch and `git rebase` again. 
 
 
 #### Push or pull hangs
