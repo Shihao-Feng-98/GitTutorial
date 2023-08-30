@@ -1,7 +1,7 @@
 # Git Tutorial
 
 ## Standard usage with git command
-You can try [**GitKraken: a git GUI**](https://www.gitkraken.com/git-client) instead
+Git Blame(vscode extension)
 
 ---
 
