@@ -1,9 +1,7 @@
 # Git Tutorial
+You can use use git command to control your codes or use some tools, such as `Git Blame` (vscode extension) and `Source Control` (vscode built in).
 
 ## Standard usage with git command
-`Git Blame` (vscode extension)  
-`Source Control` (vscode built in)
-
 
 ### 1. Get a repositories(repo in short)
 
