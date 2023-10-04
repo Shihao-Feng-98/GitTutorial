@@ -1,26 +1,83 @@
 # Git Tutorial
-You can use use git command to control your codes or use some tools, such as `Git Blame` (vscode extension) and `Source Control` (vscode built in).
+A basic tutorial on using git for **version control**, focusing on **git native commands**.  There are some easy-to-use tools that can be an assistance, such as `Git Graph` (vscode extension) and `Source Control` (vscode built in tool).
 
-## Standard usage with git command
+Some reference:
+[Official Tutorial](https://git-scm.com/book/en/v2),
+[Docs Tutorial](https://www.liaoxuefeng.com/wiki/896043488029600),
+[Video Tutorial](https://www.bilibili.com/video/BV1w14y1C7oi/?spm_id_from=333.999.0.0)
 
-### 1. Get a repositories(repo in short)
 
-#### 1.1 New(or fork) a repo in [**Github**](https://github.com/) (or [**Gitlab**](https://gitlab.com/))
-
-#### 1.2 Clone remote repo to local 
+## Standard Usage
+### 1. Create and Submit
+1.1 Clone a remote repo to local 
 ```shell
 git clone https://github.com/Shihao-Feng-98/GitTutorial.git
 ```
 
-#### 1.3 Initialize the local repo 
+1.2 Initialize the local repo 
 ```shell
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
+**Note**: Up to date, you can coding locally.
 
----
+1.3 Put the current files into **Stage**
+```shell
+git add . # add all modified files
+git add file_name # add specific file
+```
 
-### 2. Coding locally and updating in git
+1.4 Submit the current contents of **Stage** to **Branch**
+```shell
+git commit -m "some descriptions of submission" # add some descriptions
+```
+
+1.5 Push to remote ([Github](https://github.com/) or [Gitlab](https://gitlab.com/))
+```shell
+git push origin main # push to the corresponding remote branch, e.g. main
+```
+**Note**: You can `add`, `commit`, or `push` multiple times as you need.
+
+### 2. Version Control
+
+### 3. Use Branches 
+#### 3.1 Feature branch
+When you developing a new feature in a project, the following process should be followed.
+
+3.1.1 Create a new branch
+```shell
+git checkout dev # switch to desired parent branch, e.g. dev
+git branch dev/feat_a # create a branch, e.g. dev/feat_a
+git checkout dev/feat_a # switch to new branch, e.g. dev/feat_a
+```
+**Note**: Coding locally.
+
+3.1.2 Follow 1.3, 1.4, and 1.5  
+**Note**: The dev/feat_a branch would created on the remote after implementing 1.5.
+
+3.1.3 Merge to desired branch
+```shell
+git checkout dev # switch to desired branch
+git merge dev/feat_a # merge feature branch to desired branch
+```
+**Deal with conflict**  
+When new changes have been applied to the dev branch, the current merge may fail. Sometimes conflicts should be resolved before the current merge. <font color=yellow>TODO: conflict</font>
+
+**Use pull request**  
+When you cooperate with others, a pull request should be submitted. Before merging your branch, you should modify your code after review. 
+
+3.1.4 Delete the old branch
+```shell
+git branch -d dev/feat_a # delete the local branch
+git push origin --delete dev/feat_a # delete the remote branch
+```
+
+#### 3.2 Bug branch
+
+### 5. Release a project
+
+
+### 2. Coding locally and updating to remote
 We need some branches when developing our codes. Generally, the release code in `main` branch, the develop code in `dev` branch. 
 
 #### 2.1 Create a new branch from the current branch
@@ -35,47 +92,9 @@ git push origin dev
 ```
 Before creating a new branch, make sure you are in the branch you want. And we should create a new branch for each new feature (like `dev/AddXxxFeat`).
 
-#### 2.2 Push to remote (Github or Gitlab)
-You can commit and push multiple times until your feature development and testing is complete.
-```shell
-git add . # add all modified files
-git add file_name # add specific file
-```
-
-```shell
-git commit -m "some descriptions of submission" # add some descriptions
-```
-
-```shell
-git push origin branch_name # push to the corresponding remote branch
-```
-
-#### 2.3 Merge to the important branch
-For example, now you are in `dev/AddXxxFeat` branch. After develop the new feature, you should merge to `dev` branch:
-```shell
-git checkout dev # switch to dev branch
-git merge dev/AddXxxFeat # merge the code of dev/AddXxxFeat branch to dev branch
-```
-
-When multiple `dev/AddXxxFeat` branc merged to `dev` branch, you should merge the `dev` branch to `main` branch:
-```shell
-git checkout main # switch to main branch
-git merge dev # merge the code of dev branch to main branch
-```
-
-#### 2.4 Delete the redundant branch
-Delete the local branch:
-```shell
-git branch -d dev/AddXxxFeat # has been pushed or merged
-git branch -D dev/AddXxxFeat # haven't been pushed or merged
-```
-Delete the remote branch:
-```shell
-git push origin --delete dev/AddXxxFeat
-```
 
 ---
-### 3. Release the project 
+### 3. Release a project 
 #### 3.1 Use tag to label the milestone
 In general, the project version that needs to be released will be labeled with tag:
 ```shell
@@ -118,13 +137,7 @@ When you are collaborating with others, you should use `Pull requests` or `Merge
 
 ---
 
-### Some useful command
-#### Fetch code from remote branch and merge to local branch 
-```shell
-git pull origin main # git pull origin main:main, merge the remote main branch to local main branch
-git pull origin main:dev # merge the remote main branch to local dev branch
-```
-
+## note
 #### Get information
 ```shell
 git log # list the commit history
