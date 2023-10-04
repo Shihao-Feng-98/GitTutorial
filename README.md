@@ -1,9 +1,9 @@
 # Git Tutorial
 
 ## Standard usage with git command
-Git Blame(vscode extension)
+`Git Blame` (vscode extension)  
+`Source Control` (vscode built in)
 
----
 
 ### 1. Get a repositories(repo in short)
 
