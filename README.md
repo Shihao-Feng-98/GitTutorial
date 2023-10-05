@@ -94,7 +94,13 @@ git checkout dev/feat_a # switch to new branch, e.g. dev/feat_a
 When you cooperate with others, a pull request should be submitted. Before merging your branch, you should modify your code after review. 
 
 #### 3.4 Deal with conflict  
-When new changes have been applied to the dev branch, the current merge may fail. Sometimes conflicts should be resolved before the current merge. <font color=yellow>TODO: conflict</font>
+When new changes have been applied to the dev branch, the current merge may fail. Sometimes conflicts should be resolved before the current merge. 
+
+**Note**:
+- The vscode would show the conflict after calling `git merge`
+- Resolve the conflict on the help of vscode  
+- Commit the changes that have been solved the conflict
+- Merge the code again 
 
 #### 3.5 Merge to desired branch
 ```shell
