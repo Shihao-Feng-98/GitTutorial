@@ -95,7 +95,7 @@ When you cooperate with others, a pull request should be submitted. Before mergi
 
 #### 3.4 Deal with conflict  
 When new changes have been applied to the dev branch, the current merge may fail. Sometimes conflicts should be resolved before the current merge.   
-<font color=yellow>TODO: conflict</font> git rebase
+<font color=yellow>TODO: conflict</font> [ref](https://git.rvbust.com/help/user/project/merge_requests/conflicts#resolve-conflicts-from-the-command-line)
 
 #### 3.5 Merge to desired branch
 ```shell
